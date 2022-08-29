@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Account</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Student Account Update</h1>
+        <br>
+            <form method="POST" action="/db/students/update" enctype="multipart/form-data">
+                <label for="email">Enter Your Email:</label>
+                <input type="email" name="email" id="email">
+                <br>
+                <label for="name">Enter the New Name:</label>
+                <input type="text" name="name" id="name">
+                <br>
+                <label for="password">Enter the New Password:</label>
+                <input type="password" name="password" id="password">
+                <br>
+                <input type="submit" value="Update">
+            </form>
+    </main>
+</body>
+</html>

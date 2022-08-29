@@ -8,4 +8,4 @@ load_dotenv()
 
 MONGODB_URL = os.getenv('MONGODB_URL')
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGODB_URL)
-db = client.college
+db = client.college_bazaar

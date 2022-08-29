@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Post</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='css/main.css') }}">
+</head>
+<body>
+    <main>
+        <h1>Product Post Update</h1>
+        <br>
+            <form method="POST" action="/db/prod-posts/update" enctype="multipart/form-data">
+                <label for="seller_email">Enter Seller Email:</label>
+                <input type="email" name="seller_email" id="seller_email">
+                <br>
+                <label for="name">Enter the Product Name:</label>
+                <input type="text" name="name" id="name">
+                <br>
+                <label for="description">Enter the New description:</label>
+                <input type="text" name="description" id="description">
+                <br>
+                <label for="price">Enter the New price:</label>
+                <input type="text" name="price" id="price">
+                <br>
+                <label for="image_url">Enter the New image URL:</label>
+                <input type="url" name="image_url" id="image_url">
+                <br>
+                <label for="category">Enter the New category:</label>
+                <input type="text" name="category" id="category">
+                <br>
+                <label for="tags">Enter the tags:</label>
+                <input type="text" name="tags" id="tags"> <!---#TODO:Need to get the tags as list-->
+                <br>
+                <input type="submit" value="Update">
+            </form>
+    </main>
+</body>
+</html>

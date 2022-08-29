@@ -432,7 +432,7 @@ async def update_product_post(request: Request):
 '''
 
 
-@app.post("/db/prod-posts/update", response_description="Update a product_post", response_class=HTMLResponse)
+@app.post("/db/product-post/update", response_description="Update a product_post", response_class=HTMLResponse)
 async def update_product_post(request: Request, name: str = Form(...), seller_email: EmailStr = Form(...), description: str = Form(...), price: float = Form(...), image_url: str = Form(...), category: str = Form(...), tags: list = Form(...)):
     try:
         if seller_email == None or name == None:

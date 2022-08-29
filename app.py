@@ -1,22 +1,16 @@
 # app.py
 import json
-import os
-from unittest import result
-from fastapi import FastAPI, Body, HTTPException, status
-from fastapi.responses import Response, JSONResponse, HTMLResponse
-from fastapi.encoders import jsonable_encoder
-from fastapi import FastAPI, Request, Depends, Form, status
+from fastapi import FastAPI, HTTPException, status
+from fastapi.responses import Response, HTMLResponse
+from fastapi import FastAPI, Request, Form, status
 from fastapi.templating import Jinja2Templates
-from typing import Optional, List
-from fastapi.responses import RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from bson import json_util
 from pydantic import EmailStr
 
 
-from models import StudentModel
 from database import db
-from auth import verify_password, get_password_hash, authenticate_user
+from auth import get_password_hash
 
 
 def parse_json(data):

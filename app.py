@@ -29,6 +29,14 @@ app = FastAPI()
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
+
+@app.get("/", response_description="Base Route", response_class=HTMLResponse)
+async def home(request: Request):
+    result = {
+        "Message": "Welcome To College Bazaar",
+    }
+    return templates.TemplateResponse("base.html", {"request": request, "result": result})
+
 #########################################
 #  CRUD Operations in MongoDB for Students Collection    #
 #########################################
@@ -340,7 +348,8 @@ async def create_product_post(request: Request, name: str = Form(...), seller_em
     try:
         product_post = await db["product_posts"].find_one({"seller_email": seller_email, "name": name})
         if product_post:
-            raise HTTPException(status_code=404, detail=f"Product Already Posted")
+            raise HTTPException(
+                status_code=404, detail=f"Product Already Posted")
 
         product_post = {
             'name': name,
@@ -387,12 +396,14 @@ async def list_product_posts(request: Request):
 '''
     http://127.0.0.1:8000/get/product-post/{email}
 '''
+
+
 @app.get("/get/product-post/{seller_email}", response_description="Get all product_post of a student", response_class=HTMLResponse)
 async def show_product_post_by_student(request: Request, seller_email: EmailStr):
     if (product_posts := await db["product_posts"].find_one({"seller_email": seller_email})) is not None:
         product_post_list = []
         for product_post in product_posts:
-            product_post_data ={
+            product_post_data = {
                 # 'id': product_post['_id'],
                 'name': product_post['name'],
                 'seller_email': product_post['seller_email'],
@@ -416,6 +427,8 @@ async def show_product_post_by_student(request: Request, seller_email: EmailStr)
 '''
     http://127.0.0.1:8000/update/product-post
 '''
+
+
 @app.get("/update/product-post", response_description="Update a product_post", response_class=HTMLResponse)
 async def update_product_post(request: Request):
     return templates.TemplateResponse("product_post_update.html", {"request": request, "result": None})
@@ -423,11 +436,14 @@ async def update_product_post(request: Request):
 '''
     http://127.0.0.1:8000/db/product-posts/update
 '''
+
+
 @app.post("/db/prod-posts/update", response_description="Update a product_post", response_class=HTMLResponse)
 async def update_product_post(request: Request, name: str = Form(...), seller_email: EmailStr = Form(...), description: str = Form(...), price: float = Form(...), image_url: str = Form(...), category: str = Form(...), tags: list = Form(...)):
     try:
         if seller_email == None or name == None:
-            raise HTTPException(status_code=404, detail=f"product_post not found")
+            raise HTTPException(
+                status_code=404, detail=f"product_post not found")
 
         product_post = await db["product_posts"].find_one({"seller_email": seller_email, "name": name})
         if description == None:
@@ -443,7 +459,7 @@ async def update_product_post(request: Request, name: str = Form(...), seller_em
 
         updated_product_post = {
             "$set": {
-               'name': name,
+                'name': name,
                 'seller_email': seller_email,
                 'description': description,
                 'price': price,
@@ -483,4 +499,3 @@ async def delete_product_post(seller_email: EmailStr, name: str):
         return Response(status_code=status.HTTP_204_NO_CONTENT)
 
     raise HTTPException(status_code=404, detail=f"product_post not found")
-
